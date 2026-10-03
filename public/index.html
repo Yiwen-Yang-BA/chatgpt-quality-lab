@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="一份 CSV，一张质量画像。查看缺失、重复、分布和异常提示，把清理工作放在有依据的地方。"
+    />
+    <title>Quality Lab · AI 小工具</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="/data.css" />
+  </head>
+  <body>
+    <div class="app">
+      <aside class="sidebar">
+        <div class="brand"><span class="logo">Q</span>Quality Lab</div>
+        <div class="side-intro">
+          <div class="eyebrow">DATA & FINANCE STUDIO</div>
+          <div class="nav-item">数据质量画像</div>
+        </div>
+        <div class="side-note">
+          把一个想法，变成可以使用的结果。<br />轻量、专注，按你的节奏。
+        </div>
+        <div class="side-bottom">
+          <div class="eyebrow">CONNECTION</div>
+          <label
+            ><span class="sr-only" hidden>运行模式</span
+            ><select id="mode" aria-label="运行模式"></select
+          ></label>
+        </div>
+        <div class="side-footer">
+          DATA EDITION / 02<br />Built for a little more clarity.
+        </div>
+      </aside>
+      <main class="main">
+        <header class="topbar">
+          <span class="crumb">我的工作台 &nbsp; / &nbsp; 数据质量画像</span
+          ><span class="top-meta"
+            ><i class="dot"></i><span id="connection">正在连接…</span></span
+          >
+        </header>
+        <section class="hero">
+          <div class="eyebrow">TRUST STARTS WITH THE DATA.</div>
+          <h1>先看清数据，再开始分析。</h1>
+          <p class="description">
+            一份
+            CSV，一张质量画像。查看缺失、重复、分布和异常提示，把清理工作放在有依据的地方。
+          </p>
+        </section>
+        <section class="data-layout">
+          <section class="panel">
+            <div class="panel-head">
+              <h2>待检查的数据</h2>
+              <button id="sample" class="small">示例数据</button>
+            </div>
+            <p class="source-note">
+              构造示例包含缺失、重复和异常金额，便于查看检查效果。
+            </p>
+            <form id="profile-form">
+              <textarea
+                id="csv"
+                rows="15"
+                maxlength="250000"
+                required
+                spellcheck="false"
+                placeholder="粘贴 CSV，第一行为字段名称…"
+              ></textarea
+              ><input
+                id="file"
+                type="file"
+                class="upload-input"
+                accept=".csv"
+                aria-label="导入CSV"
+              /><button id="profile" class="primary" style="margin-top: 18px">
+                生成质量画像 ↗
+              </button>
+            </form>
+            <div class="divider"></div>
+            <h2>检查口径</h2>
+            <p class="hint">
+              空白视为缺失，重复行精确匹配。类型来自当前值的推断；IQR
+              异常需要至少 4 个数字，提示不会修改原始数据。
+            </p>
+            <p class="hint">前导零编号可能被识别为数字，请结合字段含义判断。</p>
+          </section>
+          <div>
+            <div id="metrics" class="metric-grid"></div>
+            <section class="panel data-panel">
+              <div class="result-title">
+                <h2>字段概览</h2>
+                <span id="count" class="chip">QUALITY PROFILE</span>
+              </div>
+              <div id="overview" class="table-wrap">
+                <div class="empty">
+                  <div class="symbol">◎</div>
+                  <h3>数据质量，有迹可查</h3>
+                  <p>导入后查看每一列的类型、缺失和唯一值。</p>
+                </div>
+              </div>
+            </section>
+            <section class="panel data-panel">
+              <div class="result-title">
+                <h2 id="column-title">字段详情</h2>
+                <span id="column-type" class="chip">SELECT A FIELD</span>
+              </div>
+              <div id="detail" class="muted">
+                点击概览中的字段，查看分布和检查提示。
+              </div>
+              <div id="distribution" class="chart-wrap"></div>
+            </section>
+            <section class="panel data-panel">
+              <h2>优先检查</h2>
+              <div id="issues" class="stack"></div>
+              <div id="meta" class="meta"></div>
+              <div id="insight" class="insight">
+                画像生成后显示规则概览或 AI 解读。
+              </div>
+              <div id="exports" class="toolbar" hidden>
+                <button id="export-html" class="primary">导出 HTML 报告</button
+                ><button id="export-json" class="small">导出 JSON</button>
+              </div>
+            </section>
+          </div>
+        </section>
+        <footer class="footer">
+          <span>Quality Lab · 独立轻量实现</span
+          ><span
+            >灵感来自
+            <a
+              href="https://github.com/Data-Centric-AI-Community/fg-data-profiling"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Data-Centric-AI-Community/fg-data-profiling</a
+            >
+            &nbsp; / &nbsp; 02 OF 10</span
+          >
+        </footer>
+      </main>
+    </div>
+    <div id="toast" role="status" aria-live="polite" hidden></div>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
